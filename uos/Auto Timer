@@ -1,0 +1,23 @@
+promptalias 'signWatch'
+promptalias 'houseRune'
+@clearjournal
+while @findobject 'signWatch'
+  clickobject 'signWatch'
+  waitforjournal 'This house is' 3000 'system'
+  // if @injournal 'greatly worn' 'system'
+  if @injournal 'in danger of collapsing' 'system'
+    snapshot
+    cast 'recall'
+    waitfortarget 1500
+    target 'houseRune'
+    while findobject 'signWatch'
+      pause 4000
+    endwhile
+    walk "North"
+    pause 500
+    walk "North"
+    pause 500
+    useskill 'hiding'
+  endif
+  pause 1000
+endwhile
