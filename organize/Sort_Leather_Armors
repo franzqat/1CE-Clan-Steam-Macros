@@ -1,0 +1,81 @@
+//$$ Sort Leather armor
+//$$ By: Franz aka Ray
+//$$ This macro will sort your armor in 6 different containers
+//////////////////////////////////
+headmsg 'Sorting all your leather armor'
+if not @findobject 'gloves'
+  headmsg 'Lets start with some config'
+  promptalias 'gloves'
+endif
+if not @findobject 'Sleeves'
+  promptalias 'Sleeves'
+endif
+if not @findobject 'Tunic'
+  promptalias 'Tunic'
+endif
+if not @findobject 'Pants'
+  promptalias 'Pants'
+endif
+if not @findobject 'Gorget'
+  promptalias 'Gorget'
+endif
+if not @findobject 'Cap'
+  promptalias 'Cap'
+endif
+// !! Static Data
+if not listexists 'Leather'
+  createlist 'Leather'
+endif
+if not listexists 'Containers'
+  createlist 'Containers'
+endif
+//Leather
+clearlist 'Leather'
+//
+@pushlist 'Leather' 0x13c6 //Leather Gloves
+@pushlist 'Leather' 0x13cd //Leather Sleeves
+@pushlist 'Leather' 0x13cc //Leather Tunic
+@pushlist 'Leather' 0x13cb //Leather Pants
+@pushlist 'Leather' 0x13c7 //Leather Gorget
+@pushlist 'Leather' 0x1db9 //Leather Cap
+//Containers
+clearlist 'Containers'
+//
+@pushlist 'Containers' 'gloves'
+@pushlist 'Containers' 'Sleeves'
+@pushlist 'Containers' 'Tunic'
+@pushlist 'Containers' 'Pants'
+@pushlist 'Containers' 'Gorget'
+@pushlist 'Containers' 'Cap'
+//Opening chests
+useobject 'gloves'
+pause 500
+useobject 'Sleeves'
+pause 500
+useobject 'Tunic'
+pause 500
+useobject 'Pants'
+pause 500
+useobject 'Gorget'
+pause 500
+useobject 'Cap'
+pause 200
+///////////////////////////////
+headmsg 'Beginning sort'
+for 0 to 'Leather'
+  for 0 to 'Containers'
+    if findtype Leather[0] 'any' 'backpack'
+      headmsg 'Moving' 22
+      headmsg Leather[0]
+      while findtype Leather[0] 'any' 'backpack'
+        moveitem 'found' Containers[0]
+        pause 500
+      endwhile
+    else
+      poplist 'Leather' 'front'
+      poplist 'Containers' 'front'
+    endif
+    pause 500
+  endfor
+endfor
+headmsg 'All done!'
