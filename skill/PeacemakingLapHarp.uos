@@ -24,7 +24,7 @@ if skill 'peacemaking' < 100
     pause 11000 
   else 
     target! 'self' 
-    pause 11000 
+    pause 7000 
   endif 
 else 
   headmsg 'Peacemaking Complete!' 
